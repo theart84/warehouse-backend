@@ -7,14 +7,14 @@ class UserController {
   async getUser(req, res) {
     const candidate = await User.findOne({email: req.user.email});
     if (candidate) {
-      console.log(req.user)
       res.status(200).json({
-        "_id": "600695712d0f781200023ede",
-        "email": "demo@demo",
-        "username": "Art",
-        "create_At": "2021-01-19T08:16:49.191Z",
-        "isAdmin": true,
-      })
+        success: true,
+        user: {
+          username: candidate.username,
+          email: candidate.email,
+          isAdmin: candidate.isAdmin
+        }}
+        )
     } else {
       res.status(401).json({
         success: false,
@@ -22,7 +22,6 @@ class UserController {
       })
     }
   }
-  
 
   async login(req, res) {
     console.log(req.body)
@@ -39,7 +38,7 @@ class UserController {
           user: {
             username: candidate.username,
             email: candidate.email,
-            isAdmin: candidate.isAdmin ? true : false
+            isAdmin: candidate.isAdmin
           },
           token,
         })
