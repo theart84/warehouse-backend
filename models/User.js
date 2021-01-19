@@ -14,6 +14,10 @@ const UserSchema = new Schema({
   create_At: {
     type: Date,
     default: Date.now
+  },
+  username: {
+    type: String,
+    required: true
   }
 });
 

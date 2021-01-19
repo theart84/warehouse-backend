@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
@@ -12,6 +13,8 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+require('./middleware/passport')(passport)
 app.use('/api', userRoute);
 app.use('/api', productRoute);
 
