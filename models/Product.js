@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
   product: {
     type: String,
-    required: true
+    deafult: 'Блок гранитный'
   },
   "arrival_date": {
     type: Date,

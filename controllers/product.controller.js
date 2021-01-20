@@ -25,26 +25,23 @@ class ProductController {
  async createProduct(req, res) {
    console.log(req.body)
    const product = await new Product({
-     product: req.body.product,
-     arrival_date: req.body.arrival_date,
-     number: req.body.number,
+     number: +req.body.number,
      type: req.body.type,
-     length: req.body.length,
-     width: req.body.width,
-     height: req.body.height,
-     "v_prov": req.body.v_prov,
-     volume: req.body.volume,
-     "v_base": req.body.v_base,
-     "shipping_date": req.body.shipping_date,
-     transport: req.body.transport,
-     driver: req.body.driver,
-     client: req.body.client,
-     isShipped: req.body.isShipped,
-     description: req.body.description
+     "arrival_date": new Date(req.body.arrival_date),
+     length: +req.body.length,
+     width: +req.body.width,
+     height: +req.body.height,
+     "v_prov": +req.body.v_prov,
+     volume: +req.body.volume,
+     "v_base": +req.body.v_base,
    });
    try {
      await product.save();
-     res.status(200).json({success: true});
+     const response = await Product.findOne({_id: product._id})
+     res.status(200).json({
+       success: true,
+       data: response
+    });
    } catch (err) {
      res.status(500).json({
        success: false,
