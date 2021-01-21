@@ -53,9 +53,11 @@ class ProductController {
   async editProduct(req, res) {
     const productID = req.params.id
     const product = await Product.updateOne({_id: productID},{$set: req.body})
+    const response = await Product.findOne({_id: productID})
     if(product) {
       res.status(200).json({
-        success: true
+        success: true,
+        product: response
       });
     }
   }
@@ -65,7 +67,8 @@ class ProductController {
    const product = await Product.deleteOne({_id: productID})
    if(product) {
      res.status(200).json({
-       success: true
+       success: true,
+       id: productID
      })
    }
  }

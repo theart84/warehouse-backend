@@ -59,7 +59,7 @@ router.delete('/product/:id', function (req, res, next) {
       if (!user) {
         return res.status(401).json({success: false, message: 'Token has been expired'})
       }
-      ProductController.delete(req, res, user)
+      ProductController.deleteProduct(req, res, user)
     })(req, res, next);
   });
 
