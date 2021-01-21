@@ -4,8 +4,8 @@ require('dotenv').config();
 const User = require('../models/User');
 
 class UserController {
-  async getUser(req, res) {
-    const candidate = await User.findOne({email: req.user.email});
+  async getUser(req, res, user) {
+    const candidate = await User.findOne({email: user.email});
     if (candidate) {
       res.status(200).json({
         success: true,
@@ -24,7 +24,6 @@ class UserController {
   }
 
   async login(req, res) {
-    console.log(req.body)
     const candidate = await User.findOne({email: req.body.credentials.email});
     if (candidate) {
       const isValidPassword = bcrypt.compareSync(req.body.credentials.password, candidate.password)
@@ -40,7 +39,7 @@ class UserController {
             email: candidate.email,
             isAdmin: candidate.isAdmin
           },
-          token,
+          token: `Bearer ${token}`
         })
       } else {
         res.status(401).json({
