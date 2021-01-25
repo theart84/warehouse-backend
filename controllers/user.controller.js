@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+const keys = require('../config/keys');
 const User = require('../models/User');
 
 class UserController {
@@ -31,7 +31,7 @@ class UserController {
         const token = jwt.sign({
           email: candidate.email,
           userId: candidate._id
-        }, process.env.JWT, {expiresIn: '1h'})
+        }, keys.jwt, {expiresIn: '1h'})
         res.status(200).json({
           success: true,
           user: {

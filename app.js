@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
-require('dotenv').config();
+const keys = require('./config/keys')
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const userRoute = require('./routes/user');
@@ -18,7 +18,7 @@ require('./middleware/passport')(passport)
 app.use('/api', userRoute);
 app.use('/api', productRoute);
 
-mongoose.connect(process.env.DB_URL, {
+mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, () => {
