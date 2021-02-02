@@ -63,5 +63,16 @@ router.delete('/product/:id', function (req, res, next) {
     })(req, res, next);
   });
 
+router.get('/search', function (req, res, next) {
+  passport.authenticate('jwt', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({success: false, message: 'Token has been expired'})
+    }
+    ProductController.search(req, res, user)
+  })(req, res, next);
+});
 
 module.exports = router;

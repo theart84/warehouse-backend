@@ -11,7 +11,7 @@ const ProductSchema = new Schema({
     required: true
   },
   number: {
-    type: Number,
+    type: String,
     required: true
   },
   type: {
@@ -67,5 +67,7 @@ const ProductSchema = new Schema({
     default: false
   }
 });
+
+ProductSchema.index({'$**': 'text'});
 
 module.exports = mongoose.model('Products', ProductSchema);
