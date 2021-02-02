@@ -24,7 +24,7 @@ class ProductController {
 
   async createProduct(req, res) {
     const product = await new Product({
-      number: +req.body.number,
+      number: req.body.number,
       type: req.body.type,
       "arrival_date": new Date(req.body.arrival_date),
       length: +req.body.length,
