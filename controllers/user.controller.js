@@ -58,7 +58,7 @@ class UserController {
 
   async register(req, res) {
     console.log(req.body)
-    const candidate = await User.findOne({email: req.body.email});
+    const candidate = await User.findOne({email: req.body.credentials.email});
     if (candidate) {
       const response = {
         success: false,
@@ -67,10 +67,10 @@ class UserController {
       res.status(409).send(JSON.stringify(response))
     } else {
       const salt = bcrypt.genSaltSync(10);
-      const password = req.body.password;
+      const password = req.body.credentials.password;
       const newUser = await new User({
-        email: req.body.email,
-        username: req.body.username,
+        email: req.body.credentials.email,
+        username: req.body.credentials.username,
         password: bcrypt.hashSync(password, salt)
       });
       const response = {
